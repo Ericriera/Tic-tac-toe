@@ -9,13 +9,16 @@ function Square({value, onSquareClick}) {
   );
 }
 
-function Button({value, onClick }) {
+function Button({value, onClick}) {
   return (
     <button className="button" onClick={onClick}>
       {value}
     </button>
   );
 }
+
+let PX = 0;
+let PO = 0;
 
 export default function Board() {
   const [xIsNext, setXIsNext] = useState(true);
@@ -36,7 +39,8 @@ export default function Board() {
   }
 
   function restart() {
-    const xIsNext = true;
+    let xIsNext = true;
+    if (winner === 'X') xIsNext = false;
     const nextSquares = Array(9).fill(null);
     setSquares(nextSquares);
     setXIsNext(xIsNext);
@@ -46,6 +50,8 @@ export default function Board() {
   let status;
   if (winner) {
     status = "Winner: " + winner;
+    if (winner === 'X') PX += 0.5;
+    else PO += 0.5;
   } 
   else if(!squares.includes(null)) {
     status = "Draw";
@@ -56,7 +62,9 @@ export default function Board() {
   
   return (
     <div>
-      <div className="status">{status}</div>
+      <p className="status">{status}</p>
+      <p style={{float: "left"}}>PLAYER(X) - {PX}</p>
+      <p style={{float: "right"}}>PLAYER(O) - {PO}</p>
       <div className="board">
         <div className="board-row">
           <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
