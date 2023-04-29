@@ -50,8 +50,8 @@ export default function Board() {
   let status;
   if (winner) {
     status = "Winner: " + winner;
-    if (winner === 'X') PX += 0.5;
-    else PO += 0.5;
+    if (winner === 'X') PX += 1;
+    else PO += 1;
   } 
   else if(!squares.includes(null)) {
     status = "Draw";
